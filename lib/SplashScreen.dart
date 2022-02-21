@@ -13,7 +13,6 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   int pageState = 0;
   double loginScreenHeight = 0;
-
   double registerScreenHeight = 0;
 
   @override

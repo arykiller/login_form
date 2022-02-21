@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1087455632974",
+    "project_id": "login-form-9970d",
+    "storage_bucket": "login-form-9970d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1087455632974:android:25c404e0c304e40c6b6d1f",
+        "android_client_info": {
+          "package_name": "com.example.loginfrm"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1087455632974-v5plvs5pf55a7a7qq29lonrj0ncp9oit.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBMr1Kx3yzAYbO1iMgp6Nblh-6sx53eoQ8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1087455632974-v5plvs5pf55a7a7qq29lonrj0ncp9oit.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

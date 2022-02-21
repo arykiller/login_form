@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:loginfrm/HomePage.dart';
+
 class LoginForm extends StatefulWidget {
   const LoginForm({Key? key}) : super(key: key);
 
@@ -8,10 +11,33 @@ class LoginForm extends StatefulWidget {
 }
 
 class _LoginFormState extends State<LoginForm> {
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  //Login Function
+  static Future<User?> loginUsingEmailPassword(
+      {required String email,
+      required String password,
+      required BuildContext context}) async {
+    FirebaseAuth auth = FirebaseAuth.instance;
+    User? user;
+    try {
+      UserCredential userCredential = await auth.signInWithEmailAndPassword(
+          email: email, password: password);
+      user = userCredential.user;
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found') {
+        print('No user found for that email');
+      }
+    }
+    return user;
+  }
+
   final _key = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
+    //Create the textFiled controller
+
     return Form(
       key: _key,
       child: Column(
@@ -32,6 +58,7 @@ class _LoginFormState extends State<LoginForm> {
                     borderRadius: BorderRadius.circular(18.0),
                   ),
                   prefixIcon: Icon(Icons.email)),
+              controller: _emailController,
             ),
           ),
           Padding(
@@ -51,6 +78,7 @@ class _LoginFormState extends State<LoginForm> {
                     borderRadius: BorderRadius.circular(18.0),
                   ),
                   prefixIcon: Icon(Icons.lock)),
+              controller: _passwordController,
             ),
           ),
           Container(
@@ -68,12 +96,21 @@ class _LoginFormState extends State<LoginForm> {
                         RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(18.0),
                             side: BorderSide(color: Colors.deepPurple)))),
-                onPressed: () {
-                  if (_key.currentState!.validate()) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('Processing Data')),
-                    );
+                onPressed: () async {
+                  User? user = await loginUsingEmailPassword(
+                      email: _emailController.text,
+                      password: _passwordController.text,
+                      context: context);
+                  print(user);
+                  if (user != null) {
+                    Navigator.of(context).push(
+                        MaterialPageRoute(builder: (context) => HomePage()));
                   }
+                  // if (_key.currentState!.validate()) {
+                  //   ScaffoldMessenger.of(context).showSnackBar(
+                  //     const SnackBar(content: Text('Processing Data')),
+                  //   );
+                  // }
                 },
                 child: Text(
                   "Sign In",
